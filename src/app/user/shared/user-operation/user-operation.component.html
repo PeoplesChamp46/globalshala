@@ -1,20 +1,53 @@
-  <!-- Profile Add Edit Operation -->
+<!-- Profile Add Edit Operation -->
 
-  <div class="profile" *ngIf="profileData">
-    <div class="close">
-      <img src="../../assets/Dismiss.svg" alt="" />
+<!-- TODO : Ask NgIf For Switching Between Add User And Edit User -->
+
+
+<div class="profile" *ngIf="profileData">
+  <div class="image">
+    <img [src]="profileData.avatar" alt="" />
+  </div>
+  <form (ngSubmit)="editUserData(f)" #f="ngForm">
+    <div class="mb-3">
+      <label for="first_name" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="first_name" [placeholder]="profileData.first_name" name="f_name" ngModel required
+        #f_name="ngModel">
     </div>
-    <h2>Profile</h2>
+    <div class="mb-3">
+      <label for="last_name" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="last_name" [placeholder]="profileData.last_name"  name="l_name"
+      ngModel
+      required
+      #l_name="ngModel">
+    </div>
+    <div class="mb-3">
+      <label for="Email1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="Email1" [placeholder]="profileData.email" name="email"
+      ngModel
+      required
+      #email="ngModel">
+    </div>
+    <button type="submit" class="btn btn-primary">{{profileData == null ? "Create" : "Submit"}}</button>
+  </form>
+</div>
 
+<!--   <div class="profile" *ngIf="!profileData">
     <div class="image">
       <img [src]="profileData.avatar" alt="" />
     </div>
-    <div class="content">
-      <h3>{{ profileData.first_name }} {{ profileData.last_name }}</h3>
-      <h4>{{ profileData.email }}</h4>
-    </div>
-
-    <div *ngIf="false" class="btn_grp">
-      <button (click)="save()">{{isEditOperation ? 'Edit' : 'Add'}}</button>
-    </div>
-  </div>
+    <form>
+      <div class="mb-3">
+        <label for="first_name" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="first_name" >
+      </div>
+      <div class="mb-3">
+        <label for="last_name" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="last_name" >
+      </div>
+      <div class="mb-3">
+        <label for="Email1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="Email1" >
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div> -->

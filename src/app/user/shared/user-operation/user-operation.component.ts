@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Form } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { User } from '../../../interface/user';
+import { UserServiceService } from '../../..//user/user-service.service';
+
+
 
 @Component({
   selector: 'app-user-operation',
@@ -14,7 +18,7 @@ export class UserOperationComponent implements OnInit {
   @Input() isEditOperation: Boolean = false;
   @Input() profileData: any;
 
-  constructor() { }
+  constructor(private users: UserServiceService) { }
 
   ngOnInit(): void {
     this.checkEditOperation();
@@ -39,8 +43,22 @@ export class UserOperationComponent implements OnInit {
     // TODO: Call API for ADD new user
   }
 
-  editUserData(userData: any) {
-    // TODO: Call API for EDIT user
+  editUserData(form: NgForm) {
+    const firstName = form.value.f_name;
+    const lastName = form.value.l_name;
+    const eMail = form.value.email;
+
+    const user : User = {
+      id : this.profileData.id,
+      first_name: firstName,
+      last_name: lastName,
+      email: eMail,
+      avatar: ''
+    }
+
+    this.users
+    .patchUser(user)
+    .subscribe((response: any) => console.log(response));
   }
 
 }

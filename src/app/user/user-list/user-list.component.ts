@@ -9,11 +9,9 @@ import { UserServiceService } from '../..//user/user-service.service';
   styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
-
   posts: any[] = [];
   headers = ['id', 'first_name', 'last_name', 'email'];
   profiles: User[] = [];
-
 
   user: User = {
     email: 'jack.lawson@reqres.in',
@@ -26,16 +24,13 @@ export class UserListComponent implements OnInit {
 
   currentSelectedUser: any;
 
-
   entry = 1;
   // selected_profile_id = 1;
   currentPageCounter: number = 1;
   totalNumPages: number = 0;
+  currentDataEntries: any;
 
-  constructor(
-    private http: HttpClient, 
-    private users: UserServiceService,
-  ){}
+  constructor(private http: HttpClient, private users: UserServiceService) { }
 
   ngOnInit(): void {
     this.onGet(this.currentPageCounter);
@@ -61,8 +56,6 @@ export class UserListComponent implements OnInit {
       .subscribe((response) => console.log(response));
   }
 
-  
-
   getProfile(ix: any) {
     this.profiles = this.posts.find((x: { id: any }) => (x.id = ix));
   }
@@ -75,48 +68,37 @@ export class UserListComponent implements OnInit {
     });
   }
 
-/*   selectedProfile(idx: any) {
-    this.selected_profile_id = idx;
-    this.profiles.push(this.posts.find((x: { id: any }) => (x.id = idx)));
-
-    console.log(this.profiles);
-  } */
-
   onSelect(value: any) {
-    // this.users.rows(value);
-    // this.onGet();
     console.log(value);
     if (value) {
       this.currentPageCounter = 1;
+      this.currentDataEntries = value
       this.onGet(this.currentPageCounter, value);
     }
   }
 
   onPrev() {
     this.currentPageCounter -= 1;
-    this.onGet(this.currentPageCounter);
+    this.onGet(this.currentPageCounter, this.currentDataEntries);
   }
 
   onNext() {
     this.currentPageCounter += 1;
-    this.onGet(this.currentPageCounter);
+    this.onGet(this.currentPageCounter, this.currentDataEntries);
   }
 
+  onSubmit(f: any) { }
 
+  createUser() { }
 
-  onSubmit(f: any) {}
-
-  createUser() {
-  }
-
-  edituser() {
-
+  editUser(post: any) { 
+    this.currentSelectedUser = post;
   }
 
   deleteUser(profile: any): void {
     if (profile) {
       this.users.deleteUser(profile?.id).subscribe((response) => {
-        const index = this.posts.findIndex(x => x.id == profile.id);
+        const index = this.posts.findIndex((x) => x.id == profile.id);
         this.posts.splice(index, 1);
       });
     }
@@ -125,5 +107,4 @@ export class UserListComponent implements OnInit {
   setCurrentProfile(post: any) {
     this.currentSelectedUser = post;
   }
-
 }
