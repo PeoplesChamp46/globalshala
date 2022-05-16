@@ -1,0 +1,20 @@
+  <!-- Profile Add Edit Operation -->
+
+  <div class="profile" *ngIf="profileData">
+    <div class="close">
+      <img src="../../assets/Dismiss.svg" alt="" />
+    </div>
+    <h2>Profile</h2>
+
+    <div class="image">
+      <img [src]="profileData.avatar" alt="" />
+    </div>
+    <div class="content">
+      <h3>{{ profileData.first_name }} {{ profileData.last_name }}</h3>
+      <h4>{{ profileData.email }}</h4>
+    </div>
+
+    <div *ngIf="false" class="btn_grp">
+      <button (click)="save()">{{isEditOperation ? 'Edit' : 'Add'}}</button>
+    </div>
+  </div>

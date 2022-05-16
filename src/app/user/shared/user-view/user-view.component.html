@@ -1,0 +1,18 @@
+  <!-- Profile -->
+
+  <div class="profile" *ngIf="profile">
+  
+
+    <div class="image">
+      <img [src]="profile.avatar" alt="" />
+    </div>
+    <div class="content">
+      <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+      <h4>{{ profile.email }}</h4>
+    </div>
+
+    <div *ngIf="false" class="btn_grp">
+      <button (click)="onPatch()">Edit</button>
+      <button (click)="onDelete()">Delete</button>
+    </div>
+  </div>
