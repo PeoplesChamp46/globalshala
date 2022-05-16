@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/interface/user';
-import { UserServiceService } from 'src/app/user/user-service.service';
+import { User } from '../../interface/user';
+import { UserServiceService } from '../..//user/user-service.service';
 
 @Component({
   selector: 'app-user-list',
